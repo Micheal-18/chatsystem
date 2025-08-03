@@ -1,0 +1,35 @@
+@import 'tailwindcss';
+
+* {  
+  box-sizing: border-box;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(270deg, darkcyan, green, skyblue, green, darkcyan);
+  background-size: 400% 400%;
+  animation: flow 15s ease-in-out infinite;
+}
+
+
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(17, 25, 40, 0.75);
+}
+
+@keyframes flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
