@@ -1,7 +1,5 @@
 import React from 'react'
 import chat from '../assets/chaticon.png'
-import { FaPortrait, FaRegBell } from 'react-icons/fa'
-import { FaRegComments, FaRegFile, FaRegStar } from 'react-icons/fa6'
 import { RiArrowDownSLine, RiBardLine, RiChatAiLine, RiFile4Line, RiFolderUserLine, RiNotificationLine, RiShutDownLine } from 'react-icons/ri'
 
 const Navbar = () => {
@@ -14,29 +12,29 @@ const Navbar = () => {
           </span>
         </div>
 
-        <ul className='flex flex-row lg:flex-col items-center gap-7 md:gap-10 lg:pt-4 px-2 md:px-0'>
+        <ul className='flex flex-row lg:flex-col items-center gap-7 md:gap-10 lg:pt-4 px-2 md:px-0 lg:text-[24px] text-[18px] '>
          <li>
-          <button className='text-white lg:text-[28px] text-[22px] cursor-pointer'><RiChatAiLine /></button>
+          <button className='text-white cursor-pointer'><RiChatAiLine /></button>
          </li>
 
           <li>
-          <button className='text-white lg:text-[28px] text-[22px] cursor-pointer'><RiFolderUserLine/></button>
+          <button className='text-white cursor-pointer'><RiFolderUserLine/></button>
          </li>
 
           <li>
-          <button className='text-white lg:text-[28px] text-[22px] cursor-pointer'><RiNotificationLine /></button>
+          <button className='text-white cursor-pointer'><RiNotificationLine /></button>
          </li>
 
           <li>
-          <button className='text-white lg:text-[28px] text-[22px] cursor-pointer'><RiFile4Line /></button>
+          <button className='text-white cursor-pointer'><RiFile4Line /></button>
          </li>
 
           <li>
-          <button className='text-white lg:text-[28px] text-[22px] cursor-pointer'><RiBardLine /></button>
+          <button className='text-white cursor-pointer'><RiBardLine /></button>
          </li>
 
          <li>
-          <button className='text-white lg:text-[28px] text-[22px] cursor-pointer'><RiShutDownLine/></button>
+          <button className='text-white cursor-pointer'><RiShutDownLine/></button>
          </li>
 
         </ul>  
