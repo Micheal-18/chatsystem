@@ -8,7 +8,7 @@ const Navbar = () => {
       <main className='flex lg:flex-col items-center justify-between w-[100%] lg-gap-10 lg-px-0'>
         <div className='flex items-start justify-center lg:border-b-1 border-[#fff] lg:w-[100%] p-4'>
           <span className='flex justify-center items-center'>
-            <img src={chat} alt="" className='lg:h-20 h-10 object-contain bg-white rounded-md' />
+            <img src={chat} alt="" className='lg:h-10 h-10 object-contain bg-white rounded-md' />
           </span>
         </div>
 

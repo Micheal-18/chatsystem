@@ -14,6 +14,7 @@ const Chatlist = () => {
   }, []);
 
   const sortedChats = useMemo(() => {
+    // spread operator to retain and return a new array
     return [...chats].sort((a, b) => {
       const aTimestamp = a.lastMessageTimestamp.seconds + a.lastMessageTimestamp.nanoseconds / 1e9 ;
       const bTimestamp = b.lastMessageTimestamp.seconds + b.lastMessageTimestamp.nanoseconds / 1e9 ;
@@ -27,9 +28,9 @@ const Chatlist = () => {
         <main className='flex items-center justify-start gap-4 p-2'>
           <img src={defaultAvater} alt="Default Avatar" className='w-10 h-10 rounded-full object-cover' />
 
-          <span className='flex flex-col items-center justify-start'>
+          <span className='flex flex-col items-start justify-start'>
             <h1 className='p-0 md:text-lg text-black font-semibold'>{"Jane Gold"}</h1>
-            <p className='p-0 font-light text-xs text-gray-400'>{"I'm new here😁"}</p>
+            <p className='p-0 font-light text-xs text-gray-400'>{"@Chatfrik"}</p>
           </span>
         </main>
         <button className='bg-[#D9F2ED] w-10 h-10 flex items-center justify-center rounded-lg'>

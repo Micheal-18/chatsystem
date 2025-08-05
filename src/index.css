@@ -14,12 +14,16 @@ body {
   animation: flow 15s ease-in-out infinite;
 }
 
-
-
 .container {
   width: 100vw;
   height: 100vh;
-  background-color: rgba(17, 25, 40, 0.75);
+  background-color: rgba(17, 25, 40, 0.4);
+}
+
+.background{
+    background: linear-gradient(270deg, darkcyan, lightgreen, skyblue, lightgreen, darkcyan);
+  background-size: 400% 400%;
+  animation: flow 15s ease-in-out infinite;
 }
 
 @keyframes flow {
@@ -34,3 +38,10 @@ body {
   }
 }
 
+.custom-scrollbar {
+  overflow: scroll;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0px;
+}
