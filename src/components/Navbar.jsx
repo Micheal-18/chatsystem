@@ -1,8 +1,19 @@
 import React from 'react'
 import chat from '../assets/chaticon.png'
+import {signOut} from 'firebase/auth'
+import {auth} from '../firebase/firebase'
 import { RiArrowDownSLine, RiBardLine, RiChatAiLine, RiFile4Line, RiFolderUserLine, RiNotificationLine, RiShutDownLine } from 'react-icons/ri'
 
 const Navbar = () => {
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      alert("User signed out successfully");
+    } catch (error) {
+      alert("Error signing out: ", error);
+    }
+  }
   return (
     <section className='sticky lg:static top-0 flex items-center lg:items-start lg:justify-start h-[7vh] lg:h-[100vh]  w-[100%] lg:w-[10%] bg-green-800 text-white py-8 lg:py-0'>
       <main className='flex lg:flex-col items-center justify-between w-[100%] lg-gap-10 lg-px-0'>
@@ -34,7 +45,7 @@ const Navbar = () => {
          </li>
 
          <li>
-          <button className='text-white cursor-pointer'><RiShutDownLine/></button>
+          <button onClick={handleSignOut} className='text-white cursor-pointer'><RiShutDownLine/></button>
          </li>
 
         </ul>  

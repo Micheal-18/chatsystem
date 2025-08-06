@@ -21,6 +21,8 @@ const Chatbox = () => {
     }
   }, [messages])
 
+
+  // to memorize, store and return calculated value
   const sortedMessages = useMemo(() => {
     // spread operator to retain and return a new array
     return [...messages].sort((a, b) => {
@@ -43,6 +45,7 @@ const Chatbox = () => {
       },
     };
 
+    // Add the new message to the messages state
     setMessages((prevMessage) => [...prevMessage, newMessage])
     sendMessageText("");
   };
