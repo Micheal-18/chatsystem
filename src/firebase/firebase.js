@@ -4,8 +4,8 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyA-u8Ul3DM8TSo0MKnVgZVBJJ6YD-xI_QE",
-  authDomain: "chat-system-dfb04.firebaseapp.com",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
   projectId: "chat-system-dfb04",
   storageBucket: "chat-system-dfb04.firebasestorage.app",
   messagingSenderId: "986797118625",
