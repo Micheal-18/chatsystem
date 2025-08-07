@@ -3,14 +3,19 @@ import defaultAvater from "../assets/Default.png"
 import { RiMore2Fill } from 'react-icons/ri'
 import SearchModal from './SearchModal'
 import  {formatTimestamp}  from '../utils/formatTimestamp'
-
+import { listenForChats } from '../firebase/firebase'
 import chatData  from '../data/Chat'
 
 const Chatlist = () => {
   const [chats, setChats] = useState([]);
 
   useEffect(() => {
-    setChats(chatData);
+    const unsubscribe = listenForChats(setChats);
+    // Initializing with static data for development purposes
+
+    return () => {
+      unsubscribe(); // Clean up the listener on component unmount
+    } 
   }, []);
 
   const sortedChats = useMemo(() => {
@@ -23,7 +28,7 @@ const Chatlist = () => {
   }, [chats]);
 
   return (
-    <section className='relative hidden lg:flex flex flex-col items-start justify-start bg-white h-[100vh] w-[100%] md:w-[600px]'>
+    <section className='relative hidden lg:flex flex flex-col items-start justify-start bg-gray-200 h-[100vh] w-[100%] md:w-[600px]'>
       <header className='flex items-center justify-between w-[100%] p-2 border-b-2 border-gray-200  sticky md:static z-[100] top-0'>
         <main className='flex items-center justify-start gap-4 p-2'>
           <img src={defaultAvater} alt="Default Avatar" className='w-10 h-10 rounded-full object-cover' />

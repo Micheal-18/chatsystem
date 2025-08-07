@@ -52,7 +52,7 @@ const Chatbox = () => {
 
   return (
     <section className=' flex flex-col items-start justify-start h-screen w-[100%] background'>
-      <header className='border-b border-gray-300 w-[100%] h-[82px] md:h-fit p-4 bg-white'>
+      <header className='border-b border-gray-300 w-[100%] h-[82px] md:h-fit p-4 bg-gray-300'>
         <main className='flex items-center gap-3'>
           <span className=''>
             <img src={defaultAvater} alt="Default Avatar" className='w-10 h-10 rounded-full object-cover' />
@@ -73,7 +73,7 @@ const Chatbox = () => {
                   <div className='flex flex-col items-end w-full'>
                     <span className='flex gap-3 me-10 h-auto'>
                       <div className='h-auto'>
-                        <div className='flex items-center justify-center p-6 rounded-lg bg-white'>
+                        <div className='flex items-center justify-center p-6 rounded-lg bg-gray-300'>
                           <h4 className='font-medium text-lg text-grey-800 w-full break-words'>{msg.text}</h4>
                         </div>
                         <p className='text-right text-sm text-gray-300 mt-3'>{formatTimestamp(msg?.timestamp)}</p>
@@ -84,7 +84,7 @@ const Chatbox = () => {
                     <span className='flex gap-3 w-[40%] h-auto ms-10'>
                       <img src={defaultAvater} alt="Default Avatar" className='w-10 h-10 rounded-full object-cover' />
                       <div>
-                        <div className='flex items-center justify-center p-6 rounded-lg bg-white'>
+                        <div className='flex items-center justify-center p-6 rounded-lg bg-gray-200'>
                           <h4>{msg.text}</h4>
                         </div>
                         <p className=' text-sm text-gray-300 mt-3'>{formatTimestamp(msg?.timestamp)}</p>
@@ -99,7 +99,7 @@ const Chatbox = () => {
           </div>
         </section>
         <div className='sticky lg:bottom-0 p-3 bottom-4 h-fit w-[100%]'>
-          <form onSubmit={handleSendMessage} action="" className='w-[100%] h-18 p-4 bg-white rounded-lg relative shadow-lg flex items-center gap-3 border-t border-gray-300'>
+          <form onSubmit={handleSendMessage} action="" className='w-[100%] h-18 p-4 bg-gray-300 rounded-lg relative shadow-lg flex items-center gap-3 border-t border-gray-300'>
             <input value={messageText} onChange={(e) => sendMessageText(e.target.value)} type="text" placeholder='Type a message...' className='h-full relative pl-2 pr-4 w-[100%] rounded-lg  text-gray-900 ' />
             <button type='submit' className='flex items-center justify-center right-6 absolute p-2 rounded-full bg-green-300 hover:bg-green-400'>
               <RiSendPlaneFill color='green' />
