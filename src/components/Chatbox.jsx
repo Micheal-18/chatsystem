@@ -3,17 +3,24 @@ import defaultAvater from "../assets/Default.png"
 import { RiSendPlaneFill } from 'react-icons/ri'
 import { formatTimestamp } from '../utils/formatTimestamp'
 import { messageData } from '../data/messageData'
+import { auth, listenForMessages, sendMessage } from "../firebase/firebase";
 
-const Chatbox = () => {
+const Chatbox = ({selectedUser}) => {
   const [messages, setMessages] = useState([]);
   const [messageText, sendMessageText] = useState('')
   const scrollRef = useRef(null)
-  const senderEmail = "baxo@mailinator.com"
 
-  useEffect(() => {
-    // Simulating fetching messages from a data source
-    setMessages(messageData);
-  }, []);
+  // optional chaining to prevent breakdown when the auth has not been set
+  const chatId =  auth?.currentUser?.uid < selectedUser?.uid ? `${auth?.currentUser?.uid}-${selectedUser?.uid}` : `${selectedUser?.uid}-${auth?.currentUser?.uid}`;
+  const user1 = auth?.currentUser;
+  const user2 = selectedUser;
+  const senderEmail = auth?.currentUser?.email;
+
+
+
+     useEffect(() => {
+        listenForMessages(chatId, setMessages);
+    }, [chatId]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -45,8 +52,10 @@ const Chatbox = () => {
       },
     };
 
+    sendMessage(messageText, chatId, user1?.uid, user2?.uid);
     // Add the new message to the messages state
     setMessages((prevMessage) => [...prevMessage, newMessage])
+    // Clear the input field after sending the message
     sendMessageText("");
   };
 
@@ -55,11 +64,11 @@ const Chatbox = () => {
       <header className='border-b border-gray-300 w-[100%] h-[82px] md:h-fit p-4 bg-gray-300'>
         <main className='flex items-center gap-3'>
           <span className=''>
-            <img src={defaultAvater} alt="Default Avatar" className='w-10 h-10 rounded-full object-cover' />
+            <img src={selectedUser?.image || defaultAvater} alt="Default Avatar" className='w-10 h-10 rounded-full object-cover' />
           </span>
           <span>
-            <h3 className='text-lg text-black font-semibold'>Jane Gold</h3>
-            <p className='p-0 font-light text-sm text-black'>@Bobola</p>
+            <h3 className='text-lg text-black font-semibold'>{selectedUser?.fullName || "RealChat"}</h3>
+            <p className='p-0 font-light text-sm text-black'>@{selectedUser?.username || "RealChat"}</p>
           </span>
         </main>
       </header>
@@ -79,7 +88,7 @@ const Chatbox = () => {
                         <p className='text-right text-sm text-gray-300 mt-3'>{formatTimestamp(msg?.timestamp)}</p>
                       </div>
                     </span>
-                  </div> :
+                  </div> : (
                   <div className='flex flex-col items-start w-full mt-5'>
                     <span className='flex gap-3 w-[40%] h-auto ms-10'>
                       <img src={defaultAvater} alt="Default Avatar" className='w-10 h-10 rounded-full object-cover' />
@@ -90,12 +99,10 @@ const Chatbox = () => {
                         <p className=' text-sm text-gray-300 mt-3'>{formatTimestamp(msg?.timestamp)}</p>
                       </div>
                     </span>
-                  </div>}
-
-
+                  </div>
+                )}
               </>
             ))}
-
           </div>
         </section>
         <div className='sticky lg:bottom-0 p-3 bottom-4 h-fit w-[100%]'>

@@ -6,7 +6,7 @@ import defaultAvater from "../assets/Default.png"
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from "../firebase/firebase"
 
-const SearchModal = ({startChat}) => {
+const SearchModal = ({ startChat }) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -35,6 +35,7 @@ const SearchModal = ({startChat}) => {
         collection(db, "users"), where("username", ">=", normalizedSearchTerm), where("username", "<=", normalizedSearchTerm + "\uf8ff")
       );
 
+
       const querySnapShot = await getDocs(q);
 
       const foundUsers = [];
@@ -49,7 +50,7 @@ const SearchModal = ({startChat}) => {
         alert("No users found");
       }
     } catch (error) {
-      console.log("Error searching users", error);
+      console.log(error);
     }
   };
 
@@ -74,32 +75,32 @@ const SearchModal = ({startChat}) => {
               <div className='p-4 md:p-5'>
                 <div className='space-y-4'>
                   <div className='flex gap-2'>
-                    <input onChange={handleInput} type='text' className='bg-gray-300 text-gray-900 outline-none rounded-lg w-[100%] p-2' />
+                    <input onChange={handleInput} type='text' className='bg-gray-300 text-gray-900 outline-none rounded-lg w-[100%] p-2' placeholder='Search users' />
                     <button onClick={handleSearch} className='bg-green-900 text-white px-3 py-2 rounded-lg hover:bg-green-700 transition duration-200'>
                       <FaSearch />
                     </button>
                   </div>
                 </div>
+                <div className='mt-6 space-y-3'>
+                  {users?.map((user) => (
+                    <div onClick={() => {
+                      console.log(user);
+                      startChat(user);
+                      closeModal();
+                    }} className='flex items-start gap-3 bg-[#15eabc34] rounded-lg p-2 cursor-pointer border border-[#ffffff20] shadow-sm hover:shadow-md transition duration-200'>
+                      <img src={user?.image || defaultAvater} className='w-10 h-10 rounded-full object-cover' />
+                      <span>
+                        <h2 className='p-0 md:text-lg text-gray-300 font-semibold'>{user?.fullName || "Default User"}</h2>
+                        <p className='p-0 text-xs text-gray-300'>@{user?.username}</p>
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className='mt-6 space-y-3'>
-                {users.map((user) => (
-                  <div onClick={() => {
-                    console.log("User clicked:", user);
-                  }} className='flex items-start gap-3 bg-[#15eabc34] rounded-lg p-2 cursor-pointer border border-[#ffffff20] shadow-sm hover:shadow-md transition duration-200'>
-                    <img src={user?.image || defaultAvater} alt={user.username} className='w-10 h-10 rounded-full object-cover' />
-                    <span>
-                      <h2 className='p-0 md:text-lg text-gray-300 font-semibold'>{user.fullName || "Unnamed User"}</h2>
-                      <p className='p-0 text-xs text-gray-300'>@{user?.username}</p>
-                    </span>
-                  </div>
-                ))}
-              </div>
-
             </div>
           </div>
         </div>
       )}
-
     </div>
   )
 }
