@@ -76,7 +76,7 @@ const SearchModal = ({ startChat }) => {
                 <div className='space-y-4'>
                   <div className='flex gap-2'>
                     <input onChange={handleInput} type='text' className='bg-gray-300 text-gray-900 outline-none rounded-lg w-[100%] p-2' placeholder='Search users' />
-                    <button onClick={handleSearch} className='bg-green-900 text-white px-3 py-2 rounded-lg hover:bg-green-700 transition duration-200'>
+                    <button  onClick={handleSearch} className='bg-green-900 text-white px-3 py-2 rounded-lg hover:bg-green-700 transition duration-200'>
                       <FaSearch />
                     </button>
                   </div>

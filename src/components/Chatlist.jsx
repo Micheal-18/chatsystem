@@ -21,6 +21,14 @@ const Chatlist = ({ setSelectedUser }) => {
         return unsubscribe;
     }, []);
 
+     useEffect(() => {
+        const unsubscribe = listenForChats(setChats);
+
+        return () => {
+            unsubscribe();
+        };
+    }, []);
+
   const sortedChats = useMemo(() => {
     // spread operator to retain and return a new array
     return [...chats].sort((a, b) => {

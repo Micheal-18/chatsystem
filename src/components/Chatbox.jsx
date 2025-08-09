@@ -33,8 +33,8 @@ const Chatbox = ({selectedUser}) => {
   const sortedMessages = useMemo(() => {
     // spread operator to retain and return a new array
     return [...messages].sort((a, b) => {
-      const aTimestamp = a.timestamp.seconds + a.timestamp.nanoseconds / 1e9;
-      const bTimestamp = b.timestamp.seconds + b.timestamp.nanoseconds / 1e9;
+      const aTimestamp = a?.timestamp.seconds + a?.timestamp.nanoseconds / 1e9;
+      const bTimestamp = b?.timestamp.seconds + b?.timestamp.nanoseconds / 1e9;
       return aTimestamp - bTimestamp; 
     });
   }, [messages]);
@@ -61,7 +61,7 @@ const Chatbox = ({selectedUser}) => {
 
   return (
     <section className=' flex flex-col items-start justify-start h-screen w-[100%] background'>
-      <header className='border-b border-gray-300 w-[100%] h-[82px] md:h-fit p-4 bg-gray-300'>
+      <header className='border-b border-gray-300 w-[100%] h-[82px] md:h-fit p-4 bg-gray-200'>
         <main className='flex items-center gap-3'>
           <span className=''>
             <img src={selectedUser?.image || defaultAvater} alt="Default Avatar" className='w-10 h-10 rounded-full object-cover' />
