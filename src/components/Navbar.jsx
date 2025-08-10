@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import chat from '../assets/chaticon.png'
 import {signOut} from 'firebase/auth'
 import {auth} from '../firebase/firebase'
 import { RiArrowDownSLine, RiBardLine, RiChatAiLine, RiFile4Line, RiFolderUserLine, RiNotificationLine, RiShutDownLine } from 'react-icons/ri'
 
 const Navbar = () => {
+
+  const [click, setClick ] = useState(false);
+
+  const handleClick = () => {
+    setClick(!click);
+  }
 
   const handleSignOut = async () => {
     try {
@@ -49,7 +55,7 @@ const Navbar = () => {
          </li>
 
         </ul>  
-          <button className='block lg:hidden text-white lg:text-2xl text-lg cursor-pointer'><RiArrowDownSLine/></button>
+          <button onClick={handleClick} className='block lg:hidden text-white lg:text-2xl text-lg cursor-pointer'><RiArrowDownSLine/></button>
 
       </main>
     </section>

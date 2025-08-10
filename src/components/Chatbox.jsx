@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo, useRef } from 'react'
 import defaultAvater from "../assets/Default.png"
 import { RiSendPlaneFill } from 'react-icons/ri'
 import { formatTimestamp } from '../utils/formatTimestamp'
+import Logo from '../assets/chaticon.png'
 import { messageData } from '../data/messageData'
 import { auth, listenForMessages, sendMessage } from "../firebase/firebase";
 
@@ -15,8 +16,6 @@ const Chatbox = ({selectedUser}) => {
   const user1 = auth?.currentUser;
   const user2 = selectedUser;
   const senderEmail = auth?.currentUser?.email;
-
-
 
      useEffect(() => {
         listenForMessages(chatId, setMessages);
@@ -60,7 +59,8 @@ const Chatbox = ({selectedUser}) => {
   };
 
   return (
-    <section className=' flex flex-col items-start justify-start h-screen w-[100%] background'>
+   <>
+   {selectedUser ?  <section className=' flex flex-col items-start justify-start h-screen w-[100%] background'>
       <header className='border-b border-gray-300 w-[100%] h-[82px] md:h-fit p-4 bg-gray-200'>
         <main className='flex items-center gap-3'>
           <span className=''>
@@ -114,7 +114,16 @@ const Chatbox = ({selectedUser}) => {
           </form>
         </div>
       </main>
-    </section>
+    </section> : 
+    <section className='bg-white h-screen w-[100%]'>
+      <div className='flex flex-col items-center justify-center h-full'>
+      <img src={Logo} alt="Default Avatar" className='w-20 h-20 rounded-full object-cover mt-5' />
+      <h3 className='font-bold text-xl text-green-700'>Welcome to Chatfrik</h3>
+      <p className='text-gray-400 text-sm mt-2'>Click on a user from the chat list to start a conversation.</p>
+      <p className='text-gray-400 text-sm mt-2'>Or use the search feature to find users.</p>
+      </div>
+      </section>}
+   </>
   )
 }
 

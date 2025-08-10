@@ -32,8 +32,8 @@ const Chatlist = ({ setSelectedUser }) => {
   const sortedChats = useMemo(() => {
     // spread operator to retain and return a new array
     return [...chats].sort((a, b) => {
-      const aTimestamp = a?.lastMessageTimestamp.seconds + a?.lastMessageTimestamp.nanoseconds / 1e9 ;
-      const bTimestamp = b?.lastMessageTimestamp.seconds + b?.lastMessageTimestamp.nanoseconds / 1e9 ;
+      const aTimestamp = a?.timestamp?.seconds + a?.timestamp?.nanoseconds / 1e9 ;
+      const bTimestamp = b?.timestamp?.seconds + b?.timestamp?.nanoseconds / 1e9 ;
       return bTimestamp - aTimestamp; // Sort in descending order
     });
   }, [chats]);
@@ -49,8 +49,8 @@ const Chatlist = ({ setSelectedUser }) => {
           <img src={user?.image || defaultAvater} alt="Default Avatar" className='w-10 h-10 rounded-full object-cover' />
 
           <span className='flex flex-col items-start justify-start'>
-            <h1 className='p-0 md:text-lg text-black font-semibold'>{user?.fullName || "ChatFrik user"}</h1>
-            <p className='p-0 font-light text-xs text-gray-400'>@{user?.username || "chatfrik"}</p>
+            <h1 className='p-0 md:text-lg text-black font-semibold'>{user?.fullName || "RealChat user"}</h1>
+            <p className='p-0 font-light text-xs text-gray-400'>@{user?.username || "realchat"}</p>
           </span>
         </main>
         <button className='bg-[#D9F2ED] w-10 h-10 flex items-center justify-center rounded-lg'>
@@ -72,14 +72,14 @@ const Chatlist = ({ setSelectedUser }) => {
            <button key={chat?.id} className='flex items-start justify-between w-[100%] p-3 px-2 border-b border-[#9090902c]'> 
          {chat?.users?.filter((user) => user?.email !== auth?.currentUser?.email).map((user) => (
            <>
-          <div className='flex items-start gap-3'>
+          <div className='flex items-start gap-3' onClick={() => startChat(user)}>
             <img src={user?.image || defaultAvater} alt="Default Avatar" className='w-10 h-10 rounded-full object-cover' />
             <span>
               <h1 className='p-0 text-[17px] text-left text-[#2A3d39] font-semibold'>{user?.fullName  || "ChatFrik User"}</h1>
               <p className='p-0 text-left font-light text-[14px] text-[#2A3d39]'>{chat?.lastMessage}</p>
             </span>
           </div>
-          <p className='p-0 text-left font-regular text-[11px] text-gray-400'>{formatTimestamp(chat?.lastMessageTimestamp)}</p>
+          <p className='p-0 text-left font-regular text-[11px] text-gray-400'>{formatTimestamp(chat?.timestamp)}</p>
           </>
          ))}
         </button>
