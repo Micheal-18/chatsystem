@@ -1,11 +1,12 @@
-import React, {useState, useEffect, useMemo} from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import defaultAvater from "../assets/Default.png"
 import { RiMore2Fill } from 'react-icons/ri'
 import SearchModal from './SearchModal'
-import  {formatTimestamp}  from '../utils/formatTimestamp'
+import { formatTimestamp } from '../utils/formatTimestamp'
+
 import { listenForChats } from '../firebase/firebase'
-import chatData  from '../data/Chat'
-import { auth, db} from "../firebase/firebase";
+import chatData from '../data/Chat'
+import { auth, db } from "../firebase/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 
 
@@ -14,29 +15,30 @@ const Chatlist = ({ setSelectedUser }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-        const userDocRef = doc(db, "users", auth?.currentUser?.uid);
-        const unsubscribe = onSnapshot(userDocRef, (doc) => {
-            setUser(doc.data());
-        });
-        return unsubscribe;
-    }, []);
+    const userDocRef = doc(db, "users", auth?.currentUser?.uid);
+    const unsubscribe = onSnapshot(userDocRef, (doc) => {
+      setUser(doc.data());
+    });
+    return unsubscribe;
+  }, []);
 
-     useEffect(() => {
-        const unsubscribe = listenForChats(setChats);
+  useEffect(() => {
+    const unsubscribe = listenForChats(setChats);
 
-        return () => {
-            unsubscribe();
-        };
-    }, []);
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   const sortedChats = useMemo(() => {
     // spread operator to retain and return a new array
     return [...chats].sort((a, b) => {
-      const aTimestamp = a?.timestamp?.seconds + a?.timestamp?.nanoseconds / 1e9 ;
-      const bTimestamp = b?.timestamp?.seconds + b?.timestamp?.nanoseconds / 1e9 ;
+      const aTimestamp = a?.lastMessageTimestamp?.seconds + a?.lastMessageTimestamp?.nanoseconds / 1e9;
+      const bTimestamp = b?.lastMessageTimestamp?.seconds + b?.lastMessageTimestamp?.nanoseconds / 1e9;
       return bTimestamp - aTimestamp; // Sort in descending order
     });
   }, [chats]);
+
 
   const startChat = (user) => {
     setSelectedUser(user);
@@ -54,37 +56,37 @@ const Chatlist = ({ setSelectedUser }) => {
           </span>
         </main>
         <button className='bg-[#D9F2ED] w-10 h-10 flex items-center justify-center rounded-lg'>
-          <RiMore2Fill color='#01AA85' className='w-8 h-8'/>
+          <RiMore2Fill color='#01AA85' className='w-8 h-8' />
         </button>
       </header>
 
       <div className='w-[100%] mt-2 px-5'>
         <header className='flex items-center justify-between'>
-          <h3 className='text-[16px]'>Messages 
+          <h3 className='text-[16px]'>Messages
             ({chats?.length || 0})</h3>
-          <SearchModal startChat={startChat}/>
+          <SearchModal startChat={startChat} />
         </header>
       </div>
 
       <main className='flex flex-col items-start justify-start w-[100%] gap-2 p-5 overflow-y-auto h-[calc(100vh-7rem)]'>
 
         {sortedChats?.map((chat) => (
-           <button key={chat?.id} className='flex items-start justify-between w-[100%] p-3 px-2 border-b border-[#9090902c]'> 
-         {chat?.users?.filter((user) => user?.email !== auth?.currentUser?.email).map((user) => (
-           <>
-          <div className='flex items-start gap-3' onClick={() => startChat(user)}>
-            <img src={user?.image || defaultAvater} alt="Default Avatar" className='w-10 h-10 rounded-full object-cover' />
-            <span>
-              <h1 className='p-0 text-[17px] text-left text-[#2A3d39] font-semibold'>{user?.fullName  || "ChatFrik User"}</h1>
-              <p className='p-0 text-left font-light text-[14px] text-[#2A3d39]'>{chat?.lastMessage}</p>
-            </span>
-          </div>
-          <p className='p-0 text-left font-regular text-[11px] text-gray-400'>{formatTimestamp(chat?.timestamp)}</p>
-          </>
-         ))}
-        </button>
+          <button key={chat?.id} className='flex items-start justify-between w-[100%] p-3 px-2 border-b border-[#9090902c]'>
+            {chat?.users?.filter((user) => user?.email !== auth?.currentUser?.email).map((user) => (
+              <>
+                <div className='flex items-start gap-3' onClick={() => startChat(user)}>
+                  <img src={user?.image || defaultAvater} alt="Default Avatar" className='w-10 h-10 rounded-full object-cover' />
+                  <span>
+                    <h1 className='p-0 text-[17px] text-left text-[#2A3d39] font-semibold'>{user?.fullName || "ChatApp User"}</h1>
+                    <p className='p-0 text-left font-light text-[14px] text-[#2A3d39]'>{chat?.lastMessage}</p>
+                  </span>
+                </div>
+                <p className='p-0 text-left font-regular text-[11px] text-gray-400'>{formatTimestamp(chat?.lastMessageTimestamp)}</p>
+              </>
+            ))}
+          </button>
         ))}
-       
+
       </main>
     </section>
   )

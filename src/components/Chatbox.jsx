@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react'
+ import React, { useState, useEffect, useMemo, useRef } from 'react'
 import defaultAvater from "../assets/Default.png"
 import { RiSendPlaneFill } from 'react-icons/ri'
 import { formatTimestamp } from '../utils/formatTimestamp'
@@ -32,8 +32,8 @@ const Chatbox = ({selectedUser}) => {
   const sortedMessages = useMemo(() => {
     // spread operator to retain and return a new array
     return [...messages].sort((a, b) => {
-      const aTimestamp = a?.timestamp.seconds + a?.timestamp.nanoseconds / 1e9;
-      const bTimestamp = b?.timestamp.seconds + b?.timestamp.nanoseconds / 1e9;
+      const aTimestamp = a?.timestamp?.seconds + a?.timestamp?.nanoseconds / 1e9;
+      const bTimestamp = b?.timestamp?.seconds + b?.timestamp?.nanoseconds / 1e9;
       return aTimestamp - bTimestamp; 
     });
   }, [messages]);
@@ -118,7 +118,7 @@ const Chatbox = ({selectedUser}) => {
     <section className='bg-white h-screen w-[100%]'>
       <div className='flex flex-col items-center justify-center h-full'>
       <img src={Logo} alt="Default Avatar" className='w-20 h-20 rounded-full object-cover mt-5' />
-      <h3 className='font-bold text-xl text-green-700'>Welcome to Chatfrik</h3>
+      <h3 className='font-bold text-xl text-green-700'>Welcome to RealChat</h3>
       <p className='text-gray-400 text-sm mt-2'>Click on a user from the chat list to start a conversation.</p>
       <p className='text-gray-400 text-sm mt-2'>Or use the search feature to find users.</p>
       </div>

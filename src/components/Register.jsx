@@ -3,7 +3,7 @@ import { FaUserPlus } from 'react-icons/fa'
 import { auth, db } from '../firebase/firebase'
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore'
-// import { FaGoogle } from 'react-icons/fa6'
+import { FaGoogle } from 'react-icons/fa6'
 
 const Register = ({ isLogin, setIsLogin }) => {
   const [loading, setLoading] = useState(false);
@@ -46,32 +46,43 @@ const Register = ({ isLogin, setIsLogin }) => {
     }
   }
 
-  //   const handleGoogleSignIn = async () => {
-  //   const provider = new GoogleAuthProvider();
+  const handleGoogleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
 
-  //   try {
-  //     const result = await signInWithPopup(auth, provider);
-  //     const user = result.user;
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
 
-  //     const userDocRef = doc(db, "user", user.uid);
+      const userDocRef = doc(db, "user", user.uid);
 
-  //     await setDoc(userDocRef, {
-  //       uid: user.uid,
-  //       email: user.email,
-  //       username: user.email?.split('@')[0],
-  //       full: user.displayName,
-  //       image: user.photoURL || ""
-  //     });
+      await setDoc(userDocRef, {
+        uid: user.uid,
+        email: user.email,
+        username: user.email?.split('@')[0],
+        full: user.displayName,
+        image: user.photoURL || ""
+      });
 
-  //   } catch (error) {
-  //     console.error("Google sign-in error:", error);
-  //   }
-  // };
+    } catch (error) {
+      console.error("Google sign-in error:", error);
+    }
+  };
 
 
   return (
     <section className='container flex justify-center items-center'>
       <div className="flex flex-col justify-center items-center w-100 h-120 p-5 bg-white shadow-lg rounded-lg">
+
+        <div className='mt-5 mb-6 text-center text-grey-400 text-sm'>
+          <button
+            type="button"
+            onClick={handleGoogleSignIn}
+            className="w-full flex justify-center items-center gap-2 mb-2 bg-linear-to-r/hsl from-blue-700 via-green-500 to-red-600  text-white p-2 rounded-md  hover:-translate-y-1 hover:scale-105 transition-transform"
+          >
+            Sign in with Google <FaGoogle />
+          </button>
+        </div>
+
         <div className='text-center mb-8'>
           <h1 className='text-[20px] font-bold'>Sign Up</h1>
           <p className='text-xs text-gray-400'>Welcome back, create an account to continue </p>
@@ -86,20 +97,12 @@ const Register = ({ isLogin, setIsLogin }) => {
           <input disabled={loading} type="password" onChange={handleChangeUser} name="password" placeholder='password' className="p-2  w-full border-green-200 mb-3 bg-[#01aa851d] text-[#004939f3] rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required />
 
 
-          <button disabled={loading} type="submit"  className="w-full flex items-center justify-center gap-2 mb-2 bg-green-700 text-white p-2 rounded-md hover:bg-green-400 over:-translate-y-1 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-black"> {loading ? <><div className='loading'></div> Processing...</> : <>Register <FaUserPlus /></> } </button>
+          <button disabled={loading} type="submit" className="w-full flex items-center justify-center gap-2 mb-2 bg-green-700 text-white p-2 rounded-md hover:bg-green-400 over:-translate-y-1 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-black"> {loading ? <><div className='loading'></div> Processing...</> : <>Register <FaUserPlus /></>} </button>
 
-
-          <div className='mt-5  text-center text-grey-400 text-sm'>
-            <button onClick={() => setIsLogin(!isLogin)}>Already have an account? Sign In</button>
-            {/* <button
-              type="button"
-              onClick={handleGoogleSignIn}
-              className="w-full flex justify-center items-center gap-2 mb-2 bg-linear-to-r/hsl from-green-700 via-red-500 to-yellow-500  text-white p-2 rounded-md  hover:-translate-y-1 hover:scale-105 transition-transform"
-            >
-              Sign in with Google <FaGoogle />
-            </button> */}
-          </div>
+          
         </form>
+
+         <button onClick={() => setIsLogin(!isLogin)}>Already have an account? Sign In</button>
       </div>
     </section>
   )

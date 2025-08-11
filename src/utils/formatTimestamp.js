@@ -4,7 +4,7 @@ export const formatTimestamp = (timestamp, showTime = false) => {
 
     const date = new Date(seconds * 1000 + nanoseconds / 1000000);
 
-    const dateOptions = { day: "numeric", month: "short", year: "numeric" };
+    const dateOptions = { day: "numeric", month: "numeric", year: "numeric" };
     const timeOptions = { hour: "2-digit", minute: "2-digit" };
 
     const formattedDate = date.toLocaleDateString("en-US", dateOptions);
