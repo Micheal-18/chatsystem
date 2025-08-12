@@ -48,12 +48,15 @@ const Register = ({ isLogin, setIsLogin }) => {
 
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
+    provider.addScope('profile');
+    provider.addScope('email');
+
 
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      const userDocRef = doc(db, "user", user.uid);
+      const userDocRef = doc(db, "users", user.uid);
 
       await setDoc(userDocRef, {
         uid: user.uid,
@@ -73,17 +76,17 @@ const Register = ({ isLogin, setIsLogin }) => {
     <section className='container flex justify-center items-center'>
       <div className="flex flex-col justify-center items-center w-100 h-120 p-5 bg-white shadow-lg rounded-lg">
 
-        <div className='mt-5 mb-6 text-center text-grey-400 text-sm'>
+        <div className='mt-2 mb-2 text-center text-gray-400 text-sm'>
           <button
             type="button"
             onClick={handleGoogleSignIn}
-            className="w-full flex justify-center items-center gap-2 mb-2 bg-linear-to-r/hsl from-blue-700 via-green-500 to-red-600  text-white p-2 rounded-md  hover:-translate-y-1 hover:scale-105 transition-transform"
+            className="w-full flex justify-center items-center gap-2 mb-2 bg-gradient-to-r from-blue-700 via-green-500 to-red-600  text-white p-2 rounded-md  hover:-translate-y-1 hover:scale-105 transition-transform"
           >
             Sign in with Google <FaGoogle />
           </button>
         </div>
 
-        <div className='text-center mb-8'>
+        <div className='text-center mb-5'>
           <h1 className='text-[20px] font-bold'>Sign Up</h1>
           <p className='text-xs text-gray-400'>Welcome back, create an account to continue </p>
         </div>
@@ -99,10 +102,10 @@ const Register = ({ isLogin, setIsLogin }) => {
 
           <button disabled={loading} type="submit" className="w-full flex items-center justify-center gap-2 mb-2 bg-green-700 text-white p-2 rounded-md hover:bg-green-400 over:-translate-y-1 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-black"> {loading ? <><div className='loading'></div> Processing...</> : <>Register <FaUserPlus /></>} </button>
 
-          
+
         </form>
 
-         <button onClick={() => setIsLogin(!isLogin)}>Already have an account? Sign In</button>
+        <button onClick={() => setIsLogin(!isLogin)}>Already have an account? Sign In</button>
       </div>
     </section>
   )

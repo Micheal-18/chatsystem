@@ -106,7 +106,7 @@ const Chatbox = ({ selectedUser }) => {
             </div>
           </section>
           <div className='sticky lg:bottom-0 p-3 bottom-4 h-fit w-[100%]'>
-            <form onSubmit={handleSendMessage} action="" className='w-[100%] h-18 p-4 bg-gray-100 opacity-90 rounded-lg relative shadow-lg flex items-center gap-3 border-t border-gray-300'>
+            <form onSubmit={handleSendMessage} action="" className='w-[100%] h-18 p-4 bg-gray-100 opacity-90  rounded-lg relative shadow-lg flex items-center gap-3 border-t border-gray-300'>
               <input value={messageText} onChange={(e) => sendMessageText(e.target.value)} type="text" placeholder='Type a message...' className='h-full relative pl-2 pr-4 w-[100%] rounded-lg  text-gray-900 ' />
               <button type='submit' className='flex items-center justify-center right-6 absolute p-2 rounded-full bg-green-300 hover:bg-green-400'>
                 <RiSendPlaneFill color='green' />
