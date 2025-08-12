@@ -58,8 +58,7 @@ const Navbar = ({ setSelectedUser }) => {
     }
   };
   return (
-    <section className='relative z-50 w-full'>
-      <div className='sticky lg:static top-0 flex items-center lg:items-start lg:justify-start h-[7vh] lg:h-[100vh]  w-[100%] lg:w-[10%]  text-white py-8 lg:py-0'>
+      <div className='relative z-50 lg:static top-0 flex items-center lg:items-start lg:justify-start h-[7vh] lg:h-[100vh]  w-[100%] lg:w-[10%]  text-white py-8 lg:py-0'>
       <main className='flex lg:flex-col items-center justify-between w-[100%] lg:gap-10 lg:px-0'>
         <div className='flex items-start justify-center lg:border-b-1 border-[#fff] lg:w-[100%] p-4'>
           <span className='flex justify-center items-center'>
@@ -90,7 +89,7 @@ const Navbar = ({ setSelectedUser }) => {
         </ul>
         <button onClick={handleSignOut} className='text-white cursor-pointer'><RiShutDownLine /></button>
         <button onClick={handleClick} className='block lg:hidden  text-white lg:text-2xl text-lg cursor-pointer'>{click ? <RiArrowUpSLine /> : <RiArrowDownSLine />}</button>
-        {click && ((<div className='lg:hidden absolute top-[7vh] right-4 bg-gray-100 text-white w-[60%] h-[60vh] rounded-lg z-[1000] flex flex-col items-center justify-start gap-4 p-2 mt-8'>
+        {click && ((<div className='lg:hidden absolute top-[7vh] right-4 bg-gray-100 text-white w-[60%] h-[60vh] rounded-lg z-[1000] flex flex-col items-center justify-start gap-4 p-2 mt-8 custom-scrollbar'>
           <div className='flex items-start justify-start w-[100%] gap-3'>
             <SearchModal startChat={startChat} />
           </div>
@@ -116,7 +115,7 @@ const Navbar = ({ setSelectedUser }) => {
         </div>))}
       </main>
     </div>
-    </section>  
+   
   )
 }
 

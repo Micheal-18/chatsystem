@@ -38,13 +38,13 @@ const Register = ({ isLogin, setIsLogin }) => {
         fullName: userData.fullName,
         image: ""
 
-      })
+      });
     } catch (error) {
       alert(error.message);
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
@@ -76,6 +76,7 @@ const Register = ({ isLogin, setIsLogin }) => {
     <section className='container flex justify-center items-center'>
       <div className="flex flex-col justify-center items-center w-100 h-120 p-5 bg-white shadow-lg rounded-lg">
 
+        {/* Google Sign In Button */}
         <div className='mt-2 mb-2 text-center text-gray-400 text-sm'>
           <button
             type="button"

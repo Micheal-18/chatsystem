@@ -67,8 +67,8 @@ const Chatbox = ({ selectedUser }) => {
               <img src={selectedUser?.image || defaultAvater} alt="Default Avatar" className='w-10 h-10 rounded-full object-cover' />
             </span>
             <span>
-              <h3 className='text-lg text-black font-semibold'>{selectedUser?.fullName || "RealChat"}</h3>
-              <p className='p-0 font-light text-sm text-black'>@{selectedUser?.username || "RealChat"}</p>
+              <h3 className='text-lg text-black font-semibold'>{selectedUser?.fullName.split(" ")[0] || "ChatApp User"}</h3>
+              <p className='p-0 font-light text-sm text-black'>@{selectedUser?.username || "ChatApp"}</p>
             </span>
           </main>
         </header>
