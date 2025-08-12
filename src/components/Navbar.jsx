@@ -66,7 +66,7 @@ const Navbar = ({ setSelectedUser }) => {
           </span>
         </div>
 
-        <ul className='flex flex-row lg:flex-col items-center gap-7 md:gap-10 lg:pt-4 px-2 md:px-0 lg:text-[16px] text-[18px] '>
+        <ul className='flex flex-row lg:flex-col items-center gap-7 md:gap-8 lg:pt-4 px-2 md:px-0 lg:text-[16px] text-[18px] '>
           <li>
             <button className='lg:flex hidden lg:flex-col text-white cursor-pointer'><RiChatAiLine /></button>
           </li>
@@ -87,8 +87,8 @@ const Navbar = ({ setSelectedUser }) => {
             <button className='lg:flex hidden lg:flex-col text-white cursor-pointer'><RiBardLine /></button>
           </li>
         </ul>
-        <button onClick={handleSignOut} className='text-white cursor-pointer'><RiShutDownLine /></button>
-        <button onClick={handleClick} className='block lg:hidden  text-white lg:text-2xl text-lg cursor-pointer'>{click ? <RiArrowUpSLine /> : <RiArrowDownSLine />}</button>
+        <button onClick={handleSignOut} className='text-white cursor-pointer '><RiShutDownLine /></button>
+        <button onClick={handleClick} className='block lg:hidden  text-white lg:text-2xl text-lg cursor-pointer mr-6'>{click ? <RiArrowUpSLine /> : <RiArrowDownSLine />}</button>
         {click && ((<div className='lg:hidden absolute top-[7vh] right-4 bg-gray-100 text-white w-[60%] h-[60vh] rounded-lg z-[1000] flex flex-col items-center justify-start gap-4 p-2 mt-8 custom-scrollbar'>
           <div className='flex items-start justify-start w-[100%] gap-3'>
             <SearchModal startChat={startChat} />
