@@ -77,11 +77,14 @@ const Chatlist = ({ setSelectedUser }) => {
                 <div className='flex items-start gap-3' onClick={() => startChat(user)}>
                   <img src={user?.image || defaultAvater} alt="Default Avatar" className='w-10 h-10 rounded-full object-cover' />
                   <span>
-                    <h1 className='p-0 text-[17px] text-left text-[#2A3d39] font-semibold'>{user?.fullName || "ChatApp User"}</h1>
+                    <h1 className='p-0 text-[17px] text-left text-[#2A3d39] font-semibold'>{user?.fullName.split(" ")[0] || "ChatApp User"}</h1>
                     <p className='p-0 text-left font-light text-[14px] text-[#2A3d39]'>{chat?.lastMessage}</p>
                   </span>
                 </div>
-                <p className='p-0 text-left font-regular text-[11px] text-gray-400'>{formatTimestamp(chat?.lastMessageTimestamp)}</p>
+                <div>
+                  <p className='p-0 text-left font-regular text-[11px] text-gray-400'>{formatTimestamp(chat?.lastMessageTimestamp)}</p>
+                  <p className='p-0 text-left font-regular text-[8px] text-gray-400'>{chat?.lastMessageTimestamp ? new Date(chat?.lastMessageTimestamp?.seconds * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "No messages"}</p>
+                </div>
               </>
             ))}
           </button>

@@ -31,7 +31,7 @@ const App = () => {
     <div>
      {user ? (
       <div className='container flex lg:flex-row flex-col items-start w-[100%]'>
-        <Navbar />
+        <Navbar setSelectedUser={setSelectedUser}/>
         <Chatlist setSelectedUser={setSelectedUser}/>
         <Chatbox  selectedUser={selectedUser} />
       </div>
