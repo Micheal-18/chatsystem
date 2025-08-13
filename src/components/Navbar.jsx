@@ -43,11 +43,15 @@ const Navbar = ({ setSelectedUser }) => {
     setSelectedUser(user);
   };
 
-  const [click, setClick] = useState(false);
+  const [click, setClick] = useState();
 
-  const handleClick = () => {
-    setClick(!click);
+  const handleDropDown = () => {
+    setClick(true);
   };
+
+  const handleEndDropDown = () => {
+    setClick(false)
+  }
 
   const handleSignOut = async () => {
     try {
@@ -88,7 +92,7 @@ const Navbar = ({ setSelectedUser }) => {
           </li>
         </ul>
         <button onClick={handleSignOut} className='text-white cursor-pointer '><RiShutDownLine /></button>
-        <button onClick={handleClick} className='block lg:hidden  text-white lg:text-2xl text-lg cursor-pointer mr-6'>{click ? <RiArrowUpSLine className='animate'/> : <RiArrowDownSLine className='animate'/>}</button>
+        <button onClick={handleDropDown} className='block lg:hidden  text-white lg:text-2xl text-lg cursor-pointer mr-6'>{click ? <RiArrowUpSLine className='animate'/> : <RiArrowDownSLine className='animate'/>}</button>
         {click && ((<div className='lg:hidden absolute top-[7vh] right-4 bg-gray-100 text-white w-[60%] h-[60vh] rounded-lg z-[1000] flex flex-col items-center justify-start gap-4 p-2 mt-8 custom-scrollbar'>
           <div className='flex items-start justify-start w-[100%] gap-3'>
             <SearchModal startChat={startChat} />
@@ -97,7 +101,7 @@ const Navbar = ({ setSelectedUser }) => {
             <button key={chat?.id} className='flex items-start justify-between w-[100%] p-3 px-2 border rounded-md active border-[#9090902c]'>
               {chat?.users?.filter((user) => user?.email !== auth?.currentUser?.email).map((user) => (
                 <>
-                  <div className='flex items-start gap-3' onClick={() => startChat(user)}>
+                  <div  className='flex items-start gap-3' onClick={() => {startChat(user); handleEndDropDown();}}>
                     <img src={user?.image || defaultAvater} alt="Default Avatar" className='w-10 h-10 rounded-full object-cover' />
                     <span >
                       <h3 className='p-0 text-[12px] text-left text-[#2A3d39] font-semibold'>{user?.fullName?.split(" ")[0] || "ChatApp User"}</h3>
