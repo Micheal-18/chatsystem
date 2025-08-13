@@ -63,3 +63,16 @@ body {
     transform: rotate(360deg);
   }
 }
+
+@keyframes bounce {
+  0% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(20px);
+  }
+}
+
+.animate {
+  animation: bounce 0.5s ease-in-out infinite;
+}

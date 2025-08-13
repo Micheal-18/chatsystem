@@ -11,7 +11,7 @@ const Chatbox = ({ selectedUser }) => {
   const [messageText, sendMessageText] = useState('')
   const scrollRef = useRef(null)
 
-  // optional chaining to prevent breakdown when the auth has not been set
+  // optional chaining ? to prevent breakdown when the auth has not been set
   const chatId = auth?.currentUser?.uid < selectedUser?.uid ? `${auth?.currentUser?.uid}-${selectedUser?.uid}` : `${selectedUser?.uid}-${auth?.currentUser?.uid}`;
   const user1 = auth?.currentUser;
   const user2 = selectedUser;
@@ -67,7 +67,7 @@ const Chatbox = ({ selectedUser }) => {
               <img src={selectedUser?.image || defaultAvater} alt="Default Avatar" className='w-10 h-10 rounded-full object-cover' />
             </span>
             <span>
-              <h3 className='text-lg text-black font-semibold'>{selectedUser?.fullName.split(" ")[0] || "ChatApp User"}</h3>
+              <h3 className='text-lg text-black font-semibold'>{selectedUser?.fullName?.split(" ")[0] || "ChatApp User"}</h3>
               <p className='p-0 font-light text-sm text-black'>@{selectedUser?.username || "ChatApp"}</p>
             </span>
           </main>

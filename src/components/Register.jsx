@@ -62,7 +62,7 @@ const Register = ({ isLogin, setIsLogin }) => {
         uid: user.uid,
         email: user.email,
         username: user.email?.split('@')[0],
-        full: user.displayName,
+        fullName: user?.fullName?.split(" ")[0] || "ChatApp User",
         image: user.photoURL || ""
       });
 

@@ -88,7 +88,7 @@ const Navbar = ({ setSelectedUser }) => {
           </li>
         </ul>
         <button onClick={handleSignOut} className='text-white cursor-pointer '><RiShutDownLine /></button>
-        <button onClick={handleClick} className='block lg:hidden  text-white lg:text-2xl text-lg cursor-pointer mr-6'>{click ? <RiArrowUpSLine /> : <RiArrowDownSLine />}</button>
+        <button onClick={handleClick} className='block lg:hidden  text-white lg:text-2xl text-lg cursor-pointer mr-6'>{click ? <RiArrowUpSLine className='animate'/> : <RiArrowDownSLine className='animate'/>}</button>
         {click && ((<div className='lg:hidden absolute top-[7vh] right-4 bg-gray-100 text-white w-[60%] h-[60vh] rounded-lg z-[1000] flex flex-col items-center justify-start gap-4 p-2 mt-8 custom-scrollbar'>
           <div className='flex items-start justify-start w-[100%] gap-3'>
             <SearchModal startChat={startChat} />
@@ -100,7 +100,7 @@ const Navbar = ({ setSelectedUser }) => {
                   <div className='flex items-start gap-3' onClick={() => startChat(user)}>
                     <img src={user?.image || defaultAvater} alt="Default Avatar" className='w-10 h-10 rounded-full object-cover' />
                     <span >
-                      <h3 className='p-0 text-[12px] text-left text-[#2A3d39] font-semibold'>{user?.fullName.split(" ")[0] || "ChatApp User"}</h3>
+                      <h3 className='p-0 text-[12px] text-left text-[#2A3d39] font-semibold'>{user?.fullName?.split(" ")[0] || "ChatApp User"}</h3>
                       <p className='p-0 text-left font-light text-[8px] text-[#2A3d39]'>{chat?.lastMessage}</p>
                     </span>
                   </div>
