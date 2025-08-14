@@ -69,7 +69,6 @@ const Chatlist = ({ setSelectedUser }) => {
       </div>
 
       <main className='flex flex-col items-start justify-start w-[100%] gap-2 p-5 overflow-y-auto h-[calc(100vh-7rem)]'>
-
         {sortedChats?.map((chat) => (
           <button key={chat?.id} className='flex items-start justify-between w-[100%] p-3 px-2 border-b border-[#9090902c]'>
             {chat?.users?.filter((user) => user?.email !== auth?.currentUser?.email).map((user) => (
@@ -89,7 +88,6 @@ const Chatlist = ({ setSelectedUser }) => {
             ))}
           </button>
         ))}
-
       </main>
     </section>
   )

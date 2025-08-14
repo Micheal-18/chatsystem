@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FaUserPlus } from 'react-icons/fa'
+import { FaEye, FaEyeSlash, FaUserPlus } from 'react-icons/fa'
 import { auth, db } from '../firebase/firebase'
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore'
@@ -7,6 +7,11 @@ import { FaGoogle } from 'react-icons/fa6'
 
 const Register = ({ isLogin, setIsLogin }) => {
   const [loading, setLoading] = useState(false);
+  const [click, setClick] = useState(false);
+
+  const handleClick = () => {
+    setClick(!click)
+  }
 
   const [userData, setUserData] = useState({
     fullName: '', email: '', password: ''
@@ -98,7 +103,31 @@ const Register = ({ isLogin, setIsLogin }) => {
 
           <input disabled={loading} type="email" onChange={handleChangeUser} name="email" placeholder='Email' className="p-2 w-full border-gray-300 mb-3 bg-[#01aa851d] text-[#004939f3] rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required />
 
-          <input disabled={loading} type="password" onChange={handleChangeUser} name="password" placeholder='password' className="p-2  w-full border-green-200 mb-3 bg-[#01aa851d] text-[#004939f3] rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required />
+          <div className="relative w-full">
+            <input
+              type={click ? "text" : "password"}
+              onChange={handleChangeUser}
+              name="password"
+              placeholder="password"
+              className="p-2 block w-full border-gray-300 bg-[#01aa851d] rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm pr-10" // added pr-10 to prevent text from overlapping icon
+              required
+            />
+
+            {click ? (
+              <FaEye
+                onClick={handleClick}
+                color="gray"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+              />
+            ) : (
+              <FaEyeSlash
+                onClick={handleClick}
+                color="gray"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+              />
+            )}
+          </div>
+
 
 
           <button disabled={loading} type="submit" className="w-full flex items-center justify-center gap-2 mb-2 bg-green-700 text-white p-2 rounded-md hover:bg-green-400 over:-translate-y-1 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-black"> {loading ? <><div className='loading'></div> Processing...</> : <>Register <FaUserPlus /></>} </button>

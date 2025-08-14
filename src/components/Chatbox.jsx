@@ -104,12 +104,12 @@ const Chatbox = ({ selectedUser }) => {
             </span>
 
           </main>
-          <div className='flex items-center justify-center gap-3'>
+          <div className='flex items-center justify-center gap-1 md:gap-3 '>
             <button onClick={handleOpenVideoCall} className='bg-[#D9F2ED] w-10 h-10 flex items-center justify-center rounded-lg'>
               <RiVideoChatLine />
             </button>
 
-            <button className='bg-[#D9F2ED] w-10 h-10 flex items-center justify-center rounded-lg ms-3'>
+            <button className='bg-[#D9F2ED] w-10 h-10 flex items-center justify-center rounded-lg'>
               <RiPhoneLine />
             </button>
             <button className='bg-[#D9F2ED] w-10 h-10 flex items-center justify-center rounded-lg'>
@@ -121,7 +121,7 @@ const Chatbox = ({ selectedUser }) => {
           <div className='absolute z-[100] mx-5  w-[50%] h-[100vh] rounded-md bg-black'>
             <header className='flex items-center justify-end p-2  w-full  '>
               <button onClick={handleCloseVideoCall} className='w-10 h-10 bg-white rounded-full flex justify-center items-center'>
-                <TbArrowsDiagonalMinimize className='text-lg' />
+                <TbArrowsDiagonalMinimize className='text-sm md:text-lg' />
               </button>
             </header>
 
