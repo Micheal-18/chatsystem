@@ -69,7 +69,16 @@ const Chatbox = ({ selectedUser }) => {
     });
   }, [messages]);
 
-  
+
+
+  // Clear input and optionally messages when switching chats
+  useEffect(() => {
+    sendMessageText("");
+    setMessages([]);
+    if (textareaRef.current) {
+      textareaRef.current.focus();
+    }
+  }, [selectedUser]);
 
   const handleSendMessage = (e) => {
     e.preventDefault();
@@ -88,6 +97,8 @@ const Chatbox = ({ selectedUser }) => {
     setMessages((prevMessage) => [...prevMessage, newMessage])
     // Clear the input field after sending the message
     sendMessageText("");
+
+
   };
 
   return (
@@ -188,19 +199,19 @@ const Chatbox = ({ selectedUser }) => {
             </div>
           </section>
           <div className='sticky lg:bottom-0 p-3 bottom-4 h-fit w-[100%]'>
-            <form onSubmit={handleSendMessage}  action="" className='w-[100%] h-18 p-4 bg-gray-100 opacity-90  rounded-lg relative shadow-lg flex items-center gap-3 border-t border-gray-300'>
-              <button onClick={handleOpenEmoji} type='button' className='bg-green-300 w-10 h-10 flex items-center  justify-center rounded-full'><RiEmojiStickerFill /></button> 
+            <form onSubmit={handleSendMessage} action="" className='w-[100%] h-18 p-4 bg-gray-100 opacity-90  rounded-lg relative shadow-lg flex items-center gap-3 border-t border-gray-300'>
+              <button onClick={handleOpenEmoji} type='button' className='bg-green-300 w-10 h-10 flex items-center  justify-center rounded-full'><RiEmojiStickerFill /></button>
               {openEmoji && (<div className="absolute bottom-16 left-3 z-50">
                 <EmojiPicker
                   onEmojiClick={(emoji) => sendMessageText(messageText + emoji.emoji)}
-                  
+
                   disableSearchBar={true}
                   disableSkinTonePicker={true}
                   width={300}
                   height={400}
                 />
               </div>)}
-              <textarea value={messageText} onChange={handleTextChange} onClick={ handleCloseEmoji}  placeholder='Type a message...' className='relative w-full resize-none overflow-hidden  whitespace-pre-wrap break-words p-2 border border-gray-300 rounded-md text-sm leading-snug focus:outline-none focus:ring-2 focus:ring-gray-400' />
+              <textarea value={messageText} onChange={handleTextChange} onClick={handleCloseEmoji} placeholder='Type a message...' className='relative w-full resize-none overflow-hidden  whitespace-pre-wrap break-words p-2 border border-gray-300 rounded-md text-sm leading-snug focus:outline-none focus:ring-2 focus:ring-gray-400' />
               <button style={{ alignSelf: "center" }} type='submit' className='flex items-center justify-center right-6 absolute p-2 rounded-full bg-green-300 hover:bg-green-400'>
                 <RiSendPlaneFill color='green' />
               </button>
