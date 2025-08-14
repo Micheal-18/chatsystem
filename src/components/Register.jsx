@@ -53,9 +53,7 @@ const Register = ({ isLogin, setIsLogin }) => {
 
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
-    provider.addScope('profile');
-    provider.addScope("name")
-    provider.addScope('email');
+    provider.addScope('profile'); provider.addScope('email');
 
 
     try {
