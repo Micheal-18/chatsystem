@@ -31,17 +31,15 @@ const SearchModal = ({ startChat }) => {
 
     try {
       const normalizedSearchTerm = searchTerm.toLowerCase();
-      const q = query(
-        collection(db, "users"), where("username", ">=", normalizedSearchTerm), where("username", "<=", normalizedSearchTerm + "\uf8ff")
-      );
-
-
+      const q = collection(db, "users");
       const querySnapShot = await getDocs(q);
 
       const foundUsers = [];
-
       querySnapShot.forEach((doc) => {
-        foundUsers.push(doc.data());
+        const data = doc.data();
+        if (data.username?.toLowerCase().includes(normalizedSearchTerm)) {
+          foundUsers.push(data);
+        }
       });
 
       setUsers(foundUsers);
@@ -76,7 +74,7 @@ const SearchModal = ({ startChat }) => {
                 <div className='space-y-4'>
                   <div className='flex gap-2'>
                     <input onChange={handleInput} type='text' className='bg-gray-300 text-gray-900 outline-none rounded-lg w-[100%] p-2' placeholder='Search users' />
-                    <button  onClick={handleSearch} className='bg-green-900 text-white px-3 py-2 rounded-lg hover:bg-green-700 transition duration-200'>
+                    <button onClick={handleSearch} className='bg-green-900 text-white px-3 py-2 rounded-lg hover:bg-green-700 transition duration-200'>
                       <FaSearch />
                     </button>
                   </div>

@@ -54,6 +54,7 @@ const Register = ({ isLogin, setIsLogin }) => {
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     provider.addScope('profile');
+    provider.addScope("name")
     provider.addScope('email');
 
 
@@ -67,7 +68,7 @@ const Register = ({ isLogin, setIsLogin }) => {
         uid: user.uid,
         email: user.email,
         username: user.email?.split('@')[0],
-        fullName: user?.fullName?.split(" ")[0] || "ChatApp User",
+        fullName: user?.displayName?.split(" ")[0] || "ChatApp User",
         image: user.photoURL || ""
       });
 
