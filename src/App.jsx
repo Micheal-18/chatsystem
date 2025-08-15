@@ -10,6 +10,7 @@ const App = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [user, setUser] = useState(null); 
   const [selectedUser, setSelectedUser] = useState(null);
+   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const currentUser = auth.currentUser
@@ -18,9 +19,13 @@ const App = () => {
     }
 
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
-      
-    })
+      if (user && user.emailVerified) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+      setLoading(false);
+    });
 
     //cleanup function
     return () => unsubscribe()

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FaEye, FaEyeSlash, FaUserPlus } from 'react-icons/fa'
 import { auth, db } from '../firebase/firebase'
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { createUserWithEmailAndPassword, GoogleAuthProvider, sendEmailVerification, signInWithPopup } from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore'
 import { FaGoogle } from 'react-icons/fa6'
 
@@ -16,6 +16,7 @@ const Register = ({ isLogin, setIsLogin }) => {
   const [userData, setUserData] = useState({
     fullName: '', email: '', password: ''
   });
+
 
   const handleChangeUser = (e) => {
     const { name, value } = e.target;
@@ -36,16 +37,25 @@ const Register = ({ isLogin, setIsLogin }) => {
       setIsLogin(true);
       const user = userCredential.user;
 
-      const userDocRef = doc(db, "users", user.uid)
+      // send email verification
+      await sendEmailVerification(user);
+      alert(`Account created! Please check ${user.email} to verify your account before logging in.`);
+
+      const userDocRef = doc(db, "users", user.uid);
 
       await setDoc(userDocRef, {
         uid: user.uid,
         email: user.email,
         username: user.email ? user.email.split('@')[0] : "unknown",
         fullName: userData.fullName,
-        image: ""
-
+        image: "",
+        verified: false,
       });
+
+      await auth.signOut();
+      alert("✅")
+      setIsLogin(true);
+
     } catch (error) {
       alert(error.message);
     } finally {
@@ -69,7 +79,8 @@ const Register = ({ isLogin, setIsLogin }) => {
         email: user.email,
         username: user.email?.split('@')[0],
         fullName: user?.displayName?.split(" ")[0] || "ChatApp User",
-        image: user.photoURL || ""
+        image: user.photoURL || "",
+        verified: user.emailVerified
       });
 
     } catch (error) {
@@ -106,7 +117,7 @@ const Register = ({ isLogin, setIsLogin }) => {
 
           <div className="relative w-full">
             <input
-            value={userData.password}
+              value={userData.password}
               type={click ? "text" : "password"}
               onChange={handleChangeUser}
               name="password"
