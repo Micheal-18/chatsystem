@@ -92,10 +92,10 @@ const Navbar = ({ setSelectedUser }) => {
           </li>
         </ul>
         <button onClick={handleSignOut} className='text-white cursor-pointer '><RiShutDownLine /></button>
-        <button onClick={handleDropDown} className='block lg:hidden  text-white lg:text-2xl text-lg cursor-pointer mr-6'>{click ? <RiArrowUpSLine className='animate'/> : <RiArrowDownSLine className='animate'/>}</button>
+        <button onClick={handleDropDown} className='block lg:hidden  text-white lg:text-2xl text-lg cursor-pointer mr-6'>{click ? <RiArrowUpSLine className='animate'/> : <RiArrowDownSLine onClick={handleEndDropDown} className='animate'/>}</button>
         {click && ((<div className='lg:hidden absolute top-[7vh] right-4 bg-gray-100 text-white w-[60%] h-[60vh] rounded-lg z-[1000] flex flex-col items-center justify-start gap-4 p-2 mt-8 custom-scrollbar'>
           <div className='flex items-start justify-start w-[100%] gap-3'>
-            <SearchModal startChat={startChat} />
+            <SearchModal startChat={startChat}/>
           </div>
           {sortedChats?.map((chat) => (
             <button key={chat?.id} className='flex items-start justify-between w-[100%] p-3 px-2 border rounded-md active border-[#9090902c]'>

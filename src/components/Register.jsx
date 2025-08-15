@@ -31,7 +31,9 @@ const Register = ({ isLogin, setIsLogin }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, userData?.email, userData?.password)
+      const userCredential = await createUserWithEmailAndPassword(auth, userData.email.trim(), userData.password.trim())
+      alert("Account created!");
+      setIsLogin(true);
       const user = userCredential.user;
 
       const userDocRef = doc(db, "users", user.uid)
@@ -98,12 +100,13 @@ const Register = ({ isLogin, setIsLogin }) => {
 
         <form onSubmit={handleAuth} className='mt-5 space-y-2'>
 
-          <input disabled={loading} type='text' onChange={handleChangeUser} name='fullName' placeholder='Full Name' className="p-2  w-full border-gray-300 mb-3 bg-[#01aa851d] text-[#004939f3] rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required />
+          <input disabled={loading} value={userData.fullName} type='text' onChange={handleChangeUser} name='fullName' placeholder='Full Name' className="p-2  w-full border-gray-300 mb-3 bg-[#01aa851d] text-[#004939f3] rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required />
 
-          <input disabled={loading} type="email" onChange={handleChangeUser} name="email" placeholder='Email' className="p-2 w-full border-gray-300 mb-3 bg-[#01aa851d] text-[#004939f3] rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required />
+          <input disabled={loading} value={userData.email} type="email" onChange={handleChangeUser} name="email" placeholder='Email' className="p-2 w-full border-gray-300 mb-3 bg-[#01aa851d] text-[#004939f3] rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required />
 
           <div className="relative w-full">
             <input
+            value={userData.password}
               type={click ? "text" : "password"}
               onChange={handleChangeUser}
               name="password"

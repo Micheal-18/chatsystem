@@ -62,9 +62,9 @@ const SearchModal = ({ startChat }) => {
       </button>
       {isOpen && (
         <div className='fixed inset-0 z-[100] flex justify-center items-center bg-[#00170cb7]' onClick={closeModal}>
-          <div className='relative p-4 w-full max-w-md  max-h-full' onClick={(e) => e.stopPropagation()}>
-            <div className='relative bg-[#01AA85] w-[100%] p-3 rounded-md shadow-lg'>
-              <div className='flex items-center justify-between p-4 md:p-5 border-b border-gray-200'>
+          <div className='relative p-4 w-full  max-w-md  max-h-full' onClick={(e) => e.stopPropagation()}>
+            <div className='relative bg-[#01AA85] custom-scrollbar  w-[100%] p-3 rounded-md shadow-lg'>
+              <div className='flex items-center  justify-between p-4 md:p-5 border-b border-gray-200'>
                 <h3 className='text-xl font-semibold text-gray-300'>Search Chat</h3>
                 <button onClick={closeModal} className='text-gray-300 bg-transparent hover:bg-[#d9f2ed] hover:text-[#01AA85] rounded-lg text-sm  w-8 h-8 inline-flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-gray-200' type='button'>
                   <FaXmark size={20} />

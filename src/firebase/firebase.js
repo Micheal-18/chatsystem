@@ -1,7 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { addDoc, collection, doc, getDoc, getFirestore, onSnapshot, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import Chatlist from "../components/Chatlist";
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
+
+
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -14,6 +16,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const messaging = getMessaging(app);
 // initalize firebase auth and then link it to the app
 const auth = getAuth(app)
 const db = getFirestore(app);
@@ -74,5 +77,24 @@ export const listenForMessages = (chatId, setMessages) => {
         setMessages(messages);
     });
 };
+
+// Ask for permission & get token
+export const requestPermission = async () => {
+  const permission = await Notification.requestPermission();
+  if (permission === "granted") {
+    const token = await getToken(messaging, { vapidKey: "YOUR_VAPID_KEY" });
+    console.log("FCM Token:", token);
+    // Save token to Firestore for this user
+  }
+};
+
+// Listen for messages in foreground
+onMessage(messaging, (payload) => {
+  console.log("Message received:", payload);
+  new Notification(payload.notification.title, {
+    body: payload.notification.body,
+    icon: payload.notification.icon
+  });
+});
 
 export { db, auth };
