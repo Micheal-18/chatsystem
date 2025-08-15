@@ -82,7 +82,7 @@ export const listenForMessages = (chatId, setMessages) => {
 export const requestPermission = async () => {
   const permission = await Notification.requestPermission();
   if (permission === "granted") {
-    const token = await getToken(messaging, { vapidKey: "YOUR_VAPID_KEY" });
+    const token = await getToken(messaging, { vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY });
     console.log("FCM Token:", token);
     // Save token to Firestore for this user
   }
