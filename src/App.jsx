@@ -19,7 +19,7 @@ const App = () => {
     }
 
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user && user.emailVerified) {
+      if (user) {
         setUser(user);
       } else {
         setUser(null);

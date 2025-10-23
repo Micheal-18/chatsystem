@@ -26,20 +26,40 @@ const Login = ({ isLogin, setIsLogin }) => {
     }));
   }
 
-  const handleAuth = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    // Sign in the user with email and password
-    try {
-      await signInWithEmailAndPassword(auth, userData?.email, userData?.password);
-      alert("User logged in successfully");
-    } catch (error) {
-      alert(error.message);
-    } finally {
-      setLoading(false);
-    }
-
+const handleAuth = async (e) => {
+  e.preventDefault();
+  if (loading) return;
+  if (!userData.email || !userData.password) {
+    alert("Please fill in all fields.");
+    return;
   }
+
+  setLoading(true);
+  try {
+    await signInWithEmailAndPassword(auth, userData.email, userData.password);
+    alert("Login successful!");
+    
+  } catch (error) {
+    let message = "";
+    switch (error.code) {
+      case "auth/user-not-found":
+        message = "No account found with this email.";
+        break;
+      case "auth/wrong-password":
+        message = "Incorrect password.";
+        break;
+      case "auth/invalid-email":
+        message = "Invalid email address format.";
+        break;
+      default:
+        message = "Login failed. Please try again.";
+    }
+    alert(message);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <section className='container flex justify-center items-center'>

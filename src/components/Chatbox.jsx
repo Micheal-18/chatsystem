@@ -205,8 +205,8 @@ const Chatbox = ({ selectedUser }) => {
                 <EmojiPicker
                   onEmojiClick={(emoji) => sendMessageText(messageText + emoji.emoji)}
 
-                  disableSearchBar={true}
-                  disableSkinTonePicker={true}
+                  disableSearchBar={false}
+                  disableSkinTonePicker={false}
                   width={300}
                   height={400}
                 />

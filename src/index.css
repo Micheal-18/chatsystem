@@ -21,7 +21,7 @@ body {
 }
 
 .background{
-    background: linear-gradient(270deg, darkcyan, lightgreen, skyblue, lightgreen, darkcyan);
+  background: linear-gradient(270deg, darkcyan, lightgreen, skyblue, lightgreen, darkcyan);
   background-size: 400% 400%;
   animation: flow 15s ease-in-out infinite;
 }
